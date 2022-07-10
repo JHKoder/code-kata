@@ -1,1 +1,2 @@
-"# code-kata" 
+# code-kata
+- 문자열 계산기
