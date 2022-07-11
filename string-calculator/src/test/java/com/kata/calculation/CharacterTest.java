@@ -81,5 +81,81 @@ public class CharacterTest {
         Assertions.assertThat(result).isEqualTo("금사과");
     }
 
+    @Test
+    void 더하기1() {
+        String str = "\"사과\" + \"나무\"";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("사과나무");
+
+    }
+
+    @Test
+    void 더하기2() {
+        String str = "\"사과\" + \"나무\" + \"열매\"";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("사과나무열매");
+
+    }
+
+    @Test
+    void 더하기3() {
+        String str = "\"사과 + 나무\" + 열매";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("사과 + 나무열매");
+    }
+
+    @Test
+    void 더하기4() {
+        String str = "사과           +           나무               +             열매";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("사과나무열매");
+
+    }
+
+    @Test
+    void 더하기5() {
+        String str = "사과 + + 나무 + 열매      ";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("사과나무열매");
+
+    }
+
+    @Test
+    void 복합계산1() {
+        String str = "사과+나무-나무";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("사과");
+    }
+
+    @Test
+    void 복합계산2() {
+        String str = "사과+나무-나무+나무";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("사과나무");
+    }
+
+    @Test
+    void 복합계산3() {
+        String str = "\"컴퓨터 과학 + 과학\" - 컴퓨터 + 시간";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo(" 과학 + 과학시간");
+    }
+
 
 }
