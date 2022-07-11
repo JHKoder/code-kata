@@ -8,68 +8,77 @@ public class CharacterTest {
     private Calculator calculator;
 
     @Test
-    void 더하기_계산() {
-        String str = "사과 + 나무";
-
-        String result = calculator.input(str);
-
-        Assertions.assertThat(result).isEqualTo("사과나무");
-    }
-
-    @Test
-    void 더하기_좌_와일드_계산() {
-        String str = "사과 + *무";
-
-        String result = calculator.input(str);
-
-        Assertions.assertThat(result).isEqualTo("사과무");
-    }
-
-    @Test
-    void 더하기_우_와일드_계산() {
-        String str = "사과 + 무*";
-
-        String result = calculator.input(str);
-
-        Assertions.assertThat(result).isEqualTo("무사과");
-    }
-
-    @Test
-    void 뺴기_계산() {
-        String str = "사과 - 사";
+    void 뺴기1() {
+        String str = "\"사과\" - 사";
 
         String result = calculator.input(str);
 
         Assertions.assertThat(result).isEqualTo("과");
-
     }
 
     @Test
-    void 뺴기_좌_와일드_계산() {
-        String str = "문자열 계산기 - *계";
+    void 뺴기2() {
+        String str = "사과 - 과";
 
         String result = calculator.input(str);
 
-        Assertions.assertThat(result).isEqualTo("산기");
+        Assertions.assertThat(result).isEqualTo("사");
     }
 
     @Test
-    void 뺴기_우_와일드_계산() {
-        String str = "문자열 계산기 - 열*";
+    void 뺴기3() {
+        String str = "과 - 사과";
 
         String result = calculator.input(str);
 
-        Assertions.assertThat(result).isEqualTo("문자");
+        Assertions.assertThat(result).isEqualTo("과");
     }
 
     @Test
-    void 따음표_적용_더하기(){
-        String str = " \"문자열 + 계산기 \" + 작업";
+    void 뺴기4() {
+        String str = "사과나무사진 - 사";
 
         String result = calculator.input(str);
 
-        Assertions.assertThat(result).isEqualTo("문자열 + 계산기작업");
+        Assertions.assertThat(result).isEqualTo("과나무진");
+    }
 
+    @Test
+    void 뺴기5() {
+        String str = "사과 - 사과";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("");
+    }
+
+
+    @Test
+    void 뺴기6() {
+        String str = "컴퓨터 과학 - 컴퓨터 과학";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("");
+    }
+
+
+    @Test
+    void 뺴기7() {
+        String str = "컴퓨터 과학 컴퓨터 - 컴퓨터";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("과학");
+    }
+
+    @Test
+    void 뺴기8() {
+        String str = "금 사과 - 사과머니";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("금사과");
     }
 
 
