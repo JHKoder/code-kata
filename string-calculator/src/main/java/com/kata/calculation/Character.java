@@ -120,7 +120,7 @@ public class Character implements Calculation {
         return true;
     }
 
-    private int getQuotesStrLen(String str, int start) {
+    private static int getQuotesStrLen(String str, int start) {
 
         if (start + 1 > str.length()) {
             throw new CalculationSymbolException();
