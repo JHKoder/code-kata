@@ -1,6 +1,7 @@
 package com.kata.calculation;
 
 import com.kata.exception.CalculationSymbolException;
+import java.util.Objects;
 
 public class OperationTree {
 
@@ -9,7 +10,6 @@ public class OperationTree {
     public Long index;
     public double value;
     public String operator;
-    public boolean isContention = true;
 
     public OperationTree() {
         index = 0L;
@@ -40,57 +40,73 @@ public class OperationTree {
 
     }
 
-    public String operation() {
-        for (int i=0;i<2000;i++) { // 반복문 범위를 벗어 날때
-            if (this.next.next!= null) {
-                operation(this);
-            } else {
-                return "";
+    public void operation() {
+        //무저건 첫번쨰 index 실행
+        String[] arr = {"*", "/", "+", "-"};
+        for (int i = 0; i < 30; i++) { // 반복문 범위를 벗어 날때
+            if (this.next != null) {
+                isFindOperator("+");
+                for (int j = 0; j < 4; j++) {
+                    operation(this, arr[j]);
+                }
             }
         }
-        return "";
     }
 
-    public String operation(OperationTree left) {
+    public String operation(OperationTree left, String sym) {
 
-
-        if(next==null){
+        if (next == null) {
             return null;
         }
-        //연산자라면
-        if (operator == null) {
+
+        if (Objects.equals(operator, sym)) {
 
             next.leftRightOperation(left);
 
             return null;
         }
 
-        next.operation(this);
+        return next.operation(this, sym);
 
-        return null;
     }
 
     public void leftRightOperation(OperationTree left) {
         double leftNum = left.value;
-        char operat = this.operator.charAt(0);
-        double rightNum = next.value;
+        char operat = left.next.operator.charAt(0);
+        double rightNum = left.next.next.value;
         double sum = 0;
 
         if (priority(operat) == 3) {
+            System.out.println("곱");
             sum = leftNum * rightNum;
         } else if (priority(operat) == 4) {
+            System.out.println("나");
             sum = leftNum / rightNum;
         } else if (priority(operat) == 5) {
+            System.out.println("더");
             sum = leftNum + rightNum;
         } else if (priority(operat) == 6) {
+            System.out.println("뺄");
             sum = leftNum - rightNum;
         }
 
-        left.next = this.next.next;
+        left.next = this.next;
         left.value = sum;
+        System.out.println("value:" + leftNum + "," + rightNum + " sum: " + sum);
 
     }
 
+
+    public boolean isFindOperator(String oper) {
+        if (next != null) {
+            if(Objects.equals(operator, oper)){
+                System.out.println("return");
+                return true;
+            }
+            return next.isFindOperator(oper);
+        }
+        return false;
+    }
 
     public double findTree() {
         return findTree(next);
@@ -137,13 +153,11 @@ public class OperationTree {
 
 
     public static long strToLong(String str) {
-        System.out.println(">>"+str);
-
         long re = 0;
-        int me=0;
+        int me = 0;
 
-        if(str.charAt(0) == '-'){
-            me=1;
+        if (str.charAt(0) == '-') {
+            me = 1;
         }
         for (int i = me; i < str.length(); i++) {
             re += str.charAt(i) - '0';
@@ -154,8 +168,8 @@ public class OperationTree {
 
             re *= 10;
         }
-        if(me==1){
-            re*=-1;
+        if (me == 1) {
+            re *= -1;
         }
         return re;
     }
