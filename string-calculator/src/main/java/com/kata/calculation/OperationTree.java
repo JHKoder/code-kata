@@ -113,7 +113,6 @@ public class OperationTree {
 
         // ) 이 left 해서 null 을 만난다면 연산자의 오류가 아닐까?
         // ) 이 ( 을 만나기 위해 만든 메소드인대 못찾으면 오류가 일어나는게 당연한것 같다.
-
         if (find == null) {
             return save;
         }

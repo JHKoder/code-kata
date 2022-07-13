@@ -25,10 +25,6 @@ public class Number implements Calculation {
             }
         }
 
-        for(int i=0;i<list.size();i++){
-            System.out.println(list.get(i));
-        }
-
         OperationTree oper = new OperationTree();
 
         for (int i = 0; i < list.size(); i++) {
@@ -37,8 +33,10 @@ public class Number implements Calculation {
         //계산
         oper.findTree();
         oper.operation();
+
         int result = (int) oper.findTree();
-        System.out.print("답 : " + result);
+        System.out.print("리턴 : " + result);
+
         return result+"";
     }
 
