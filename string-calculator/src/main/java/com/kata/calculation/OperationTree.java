@@ -1,7 +1,6 @@
 package com.kata.calculation;
 
 import com.kata.exception.CalculationFailureException;
-import com.kata.exception.CalculationSymbolException;
 import java.util.Objects;
 
 public class OperationTree {
@@ -46,18 +45,19 @@ public class OperationTree {
     public void operation() {
         OperationTree find = findFastOperation();
 
-        if(Objects.equals(find.operator, ")")){
+        if (Objects.equals(find.operator, ")")) {
             System.out.println("( ) 병합");
-            removeParentheses(find.left.left,find.left,find);
-        }else{
-            if(find.left != null) {
+            removeParentheses(find.left.left, find.left, find);
+        } else {
+            if (find.left != null) {
                 processing(find.left, find, find.next);
-            }else{
-                return ;
+                System.out.println(" = " + find.left.value);
+            } else {
+                return;
             }
         }
 
-        if(next != null){
+        if (next != null) {
             operation();
         }
 
@@ -68,35 +68,44 @@ public class OperationTree {
 
         double sum = arithmetic(left.value, oper.operator.charAt(0), right.value);
 
-        left.value=sum;
-        if(right.next != null){
+        left.value = sum;
+        if (right.next != null) {
             left.next = right.next;
-            right.next.left=left;
-        }else{
+            right.next.left = left;
+        } else {
             left.next = null;
         }
+
         oper = null;
     }
 
 
     // ( a )  에서 a 만 남기는
-    public OperationTree removeParentheses(OperationTree left,OperationTree find,OperationTree right){
+    public OperationTree removeParentheses(OperationTree left, OperationTree find, OperationTree right) {
 
-        // ( 를 a 로 변경
-        left = find;
-
-        if(right.next != null){
-            //) 뒤 에 연산자가 올경우
-            left.next=right.next;
-
+        //( 처리
+        if (left.left != null) {
+            // ( 왼쪽에 연산자가 있을경우
+            left.left.next=find;
+            find.left=left.left;
+            left = null;
         }else{
-
-            //) 제거
-            left.next =null;
-            right = null;
+            find.left=null;
+            left=find;
         }
 
-        return left;
+        // ) 처리
+        if (right.next != null) {
+            // ) 오른쪽에 연산자가 있을경우
+            right.next.left = find;
+            find.next=right.next;
+            right =null;
+        } else {
+            find.next=null;
+            right=null;
+        }
+
+        return find;
     }
 
     //"(" 을 만날떄까지의 최우선순위 구하는 함수
@@ -105,7 +114,11 @@ public class OperationTree {
         // ) 이 left 해서 null 을 만난다면 연산자의 오류가 아닐까?
         // ) 이 ( 을 만나기 위해 만든 메소드인대 못찾으면 오류가 일어나는게 당연한것 같다.
 
+        if (find == null) {
+            return save;
+        }
         //반복문의 끝
+
         if (Objects.equals(find.operator, "(")) {
             //우선순위가 가장 높은 객체 리턴
             return save;
@@ -133,8 +146,6 @@ public class OperationTree {
         }
 
     }
-
-
 
 
     public OperationTree findFastOperation() {
@@ -166,7 +177,9 @@ public class OperationTree {
             // 연산자가 ")" 일떄
             if (findNum == 1) {
                 // ")" 을 만났을때 "(" 을 만날떄까지 left 를 만날떄까지 반복
-                return findLeftOperation(this, Integer.MAX_VALUE, save);
+                System.out.println("left find -");
+                findTree();
+                return findLeftOperation(find, Integer.MAX_VALUE, save);
             }
 
             // *./,+,- 연산자일떄 현제 위치 값 저장
@@ -181,24 +194,26 @@ public class OperationTree {
         //다음값이 존재하지 않으면 저장했던 save 을 리턴
         return save;
     }
+
     public double arithmetic(double left, char ch, double right) {
         switch (ch) {
             case '*':
-                System.out.println("*");
+                System.out.print(left + " * " + right);
                 return left * right;
             case '/':
-                System.out.println("/");
+                System.out.print(left + " / " + right);
                 return left / right;
             case '+':
-                System.out.println("+");
+                System.out.print(left + " + " + right);
                 return left + right;
             case '-':
-                System.out.println("-");
+                System.out.print(left + " - " + right);
                 return left - right;
         }
 
         throw new CalculationFailureException();
     }
+
     public boolean isFindOperator(String oper) {
         if (next != null) {
             if (Objects.equals(operator, oper)) {
@@ -223,8 +238,6 @@ public class OperationTree {
 
     public int prioritySymbol(char operator) {
 
-        //( 을 무시한다
-        //) 가 나온다면
         switch (operator) {
             case '*':
                 return 1;
