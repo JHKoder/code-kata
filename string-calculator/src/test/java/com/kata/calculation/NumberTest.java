@@ -17,11 +17,11 @@ public class NumberTest {
 
     @Test
     void 더하기2() {
-        String str = "1 + 1 + 1 + 1";
+        String str = "1 + 11 + 1 + 1";
 
         String result = calculator.input(str);
 
-        Assertions.assertThat(result).isEqualTo("4");
+        Assertions.assertThat(result).isEqualTo("14");
     }
 
     @Test
@@ -35,7 +35,7 @@ public class NumberTest {
 
     @Test
     void 곱하기() {
-        String str = "10 * 10";
+        String str = " 10 * 10";
 
         String result = calculator.input(str);
 
@@ -60,13 +60,35 @@ public class NumberTest {
     }
 
     @Test
-    void 괄호_계산() {
-        String str = "(1 + 1) * 2";
+    void 괄호_계산1() {
+        String str = "2 * (1 +2 ) ";
 
         String result = calculator.input(str);
 
-        Assertions.assertThat(result).isEqualTo("4");
+        Assertions.assertThat(result).isEqualTo("6");
     }
+
+    @Test
+    void 괄호_우선순위_계산() {
+        String str = "2 * (1 + 10 * 2 ) ";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("42");
+    }
+
+
+    @Test
+    void 우선순위_계산() {
+        String str = "5 * 5 + 10 / 2 - 1 ";
+        //25 + 5 - 1
+        // 24
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("29");
+
+    }
+
 
     @Test
     void 복합연산_1() {
@@ -79,21 +101,20 @@ public class NumberTest {
 
     @Test
     void 복합연산_2() {
-        String str = "10 * (10 + 5) / ( -99 * (-10 + (5 * 1)))";
+        String str = "3453 * -2 * 10 + (88 - 30 * 4)";
 
         String result = calculator.input(str);
 
-        Assertions.assertThat(result).isEqualTo("742.5");
+        Assertions.assertThat(result).isEqualTo("-69092");
     }
 
     @Test
     void 복합연산_3() {
-        String str = "1 + ((2 - 3) * (4 * ((5 + 6) / 7 ) / 8) * 10";
+        String str = "(100/20) * (10/5) / 2 + (5*2) * -50 ";
 
         String result = calculator.input(str);
 
-        Assertions.assertThat(result).isEqualTo("");
+        Assertions.assertThat(result).isEqualTo("-495");
     }
-
 
 }
