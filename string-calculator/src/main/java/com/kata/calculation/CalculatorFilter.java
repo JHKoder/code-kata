@@ -1,5 +1,7 @@
 package com.kata.calculation;
 
+import com.kata.calculation.character.Character;
+import com.kata.calculation.numbers.Number;
 import com.kata.exception.CalculationFailureException;
 
 public class CalculatorFilter {
@@ -26,29 +28,12 @@ public class CalculatorFilter {
         }
 
         for (int i = 0; i < str.length(); i++) {
-            if (isAlphabet(str.charAt(i)) || isKorean(str.charAt(i))) {
+            if (Validation.isAlphabet(str.charAt(i)) || Validation.isKorean(str.charAt(i))) {
                 return true;
             }
         }
 
         return false;
     }
-
-    private static boolean isAlphabet(char ch) {
-        return isCapitalLetter(ch) || isSmallLetter(ch);
-    }
-
-    private static boolean isCapitalLetter(char ch) {
-        return ch >= 'a' && ch <= 'z';
-    }
-
-    private static boolean isSmallLetter(char ch) {
-        return ch >= 'A' && ch <= 'Z';
-    }
-
-    private static boolean isKorean(char ch) {
-        return ch >= '가' && ch <= '힣';
-    }
-
 
 }
