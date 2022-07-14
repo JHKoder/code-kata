@@ -1,5 +1,6 @@
-package com.kata.calculation;
+package com.kata.calculation.numbers;
 
+import com.kata.calculation.Calculator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +51,16 @@ public class NumberTest {
 
         Assertions.assertThat(result).isEqualTo("1");
     }
+
+    @Test
+    void 소수점_계산() {
+        String str = "10 - 0.05";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("9.95");
+    }
+
 
     @Test
     void 마이너스_계산() {
@@ -115,6 +126,14 @@ public class NumberTest {
         String result = calculator.input(str);
 
         Assertions.assertThat(result).isEqualTo("-495");
+    }
+    @Test
+    void 복합연산_4() {
+        String str = "(1200) * 1 * (4 + (10 + 5 * 10) * 15)";
+
+        String result = calculator.input(str);
+
+        Assertions.assertThat(result).isEqualTo("1084800");
     }
 
 }
