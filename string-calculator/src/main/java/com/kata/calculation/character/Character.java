@@ -1,5 +1,8 @@
-package com.kata.calculation;
+package com.kata.calculation.character;
 
+import static com.kata.calculation.Validation.isStrEquls;
+
+import com.kata.calculation.Calculation;
 import com.kata.exception.CalculationSymbolException;
 
 public class Character implements Calculation {
@@ -19,7 +22,6 @@ public class Character implements Calculation {
 
         for (int i = 0; i < pram.length(); i++) {
 
-            //연산자
             if ('+' == pram.charAt(i)) {
                 if (isPuls) {
                     left = left + temp;
@@ -42,9 +44,7 @@ public class Character implements Calculation {
                 }
                 temp = "";
                 isMinus = true;
-
             }
-
             // 묶음  표시
             else if ('"' == pram.charAt(i)) {
                 //" " 사이 문자 구하는 블록
@@ -58,7 +58,6 @@ public class Character implements Calculation {
             } else if (' ' != pram.charAt(i)) {
                 temp += pram.charAt(i);
             }
-
         }
 
         if (isMinus) {
@@ -66,9 +65,9 @@ public class Character implements Calculation {
         } else if (isPuls) {
             left += temp;
         }
-
         return left;
     }
+
 
     public static String replace(String target, String comparisonTarget) {
 
@@ -88,7 +87,7 @@ public class Character implements Calculation {
             boolean isCheck = false;
 
             if (target.charAt(i) == comparisonTarget.charAt(0)) {
-                if (isEquls(target, comparisonTarget, i)) {
+                if (isStrEquls(target, comparisonTarget, i)) {
                     isCheck = true;
                     i += comparisonTarget.length() - 1;
                 }
@@ -100,24 +99,6 @@ public class Character implements Calculation {
 
         return returnValue;
 
-    }
-
-    private static boolean isEquls(String s1, String s2, int s1Len) {
-        // s1 길이와 s2 길이
-        if (s1.length() - s1Len < s2.length()) {
-            return false;
-        }
-        for (int i = s1Len; i < s1.length(); i++) {
-            for (int j = 0; j < s2.length(); j++) {
-                if (s1.charAt(i + j) != s2.charAt(j)) {
-                    return false;
-                }
-                if (j == s2.length() - 1) {
-                    return true;
-                }
-            }
-        }
-        return true;
     }
 
     private static int getQuotesStrLen(String str, int start) {

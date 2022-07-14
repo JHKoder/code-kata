@@ -1,5 +1,6 @@
-package com.kata.calculation;
+package com.kata.calculation.character;
 
+import com.kata.calculation.Calculator;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
