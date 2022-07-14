@@ -6,7 +6,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("문자 숫자 계산기 구별 테스트")
+@DisplayName("문자 숫자 계산기 필터 테스트")
 public class CalculatorFilterTest {
 
     @Test
