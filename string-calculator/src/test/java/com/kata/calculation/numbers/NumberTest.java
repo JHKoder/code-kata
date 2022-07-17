@@ -2,6 +2,7 @@ package com.kata.calculation.numbers;
 
 import com.kata.calculation.Calculator;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,10 +11,14 @@ import org.junit.jupiter.params.provider.ValueSource;
 @DisplayName("문자열 숫자 계산기 테스트")
 public class NumberTest {
 
+    @BeforeEach
+    void setup(){
+        Calculator.on();
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "4+6", "1+4+5", "2+2+2+2+2",
+            "4+6", "1+4+5", "2+2 + 2+2+2",
     })
     void 더하기(String str) {
         String result = Calculator.input(str);
@@ -79,7 +84,7 @@ public class NumberTest {
 
     @ParameterizedTest
     @ValueSource(strings = {
-            "1+(3+2)", "(10 - 5)+1", "(2*5)-4", "(10/2)+1"
+            "1+(3+2)", "(10 - 5)+1", "(2*5) - 4", "(10/2)+1"
     })
     void 괄호_계산1(String str) {
         String result = Calculator.input(str);

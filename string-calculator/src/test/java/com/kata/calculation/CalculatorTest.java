@@ -1,12 +1,17 @@
 package com.kata.calculation;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 @DisplayName("계산기 테스트")
 public class CalculatorTest {
 
+    @BeforeEach
+    void setup(){
+        Calculator.on();
+    }
 
     @Test
     void 문자_계산() {
