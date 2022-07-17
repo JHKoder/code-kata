@@ -5,12 +5,12 @@ import static com.kata.calculation.Validation.isNumber;
 import static com.kata.calculation.Validation.isParentheses;
 import static com.kata.calculation.Validation.isSymbol;
 
-import com.kata.calculation.numbers.OperationList;
+import com.kata.calculation.numbers.Register;
 
 public class Converter {
 
-    public static OperationList strToOperation(String pram) {
-        OperationList oper = new OperationList();
+    public static Register strToOperation(String pram) {
+        Register oper = new Register();
         String temp = "";
 
         for (int i = 0; i < pram.length(); i++) {
