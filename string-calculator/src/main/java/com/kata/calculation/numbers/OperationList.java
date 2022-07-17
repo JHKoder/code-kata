@@ -1,48 +1,64 @@
 package com.kata.calculation.numbers;
 
-import com.kata.common.Garbage;
+import static com.kata.calculation.Validation.isNumber;
+import static com.kata.calculation.conversion.Converter.strToDouble;
+
+import com.kata.common.Log;
 import com.kata.exception.CalculationSymbolException;
 import java.util.Objects;
 
-public class OperationTree {
+public class OperationList {
 
-    public OperationTree next = null;
-    public OperationTree left = null;
+    private OperationList next = null;
+    private OperationList left = null;
 
-    public double value;
-    public char operator;
+    private double value;
+    private char operator;
 
-    public OperationTree() {}
+    public OperationList() {
+    }
 
-    public void append(double sp) {
 
+    public void append(String str) {
+        if (isNumber(str) || str.length() > 1) {
+            append(strToDouble(str));
+        } else {
+            append(str.charAt(0));
+        }
+    }
+
+    private void append(double sp) {
         if (next == null) {
-            value =sp;
-            next = new OperationTree();
-            next.left = this;
+            value = sp;
+            appendNext();
         } else {
             next.append(sp);
         }
-
     }
 
-    public void append(char ch) {
-
+    private void append(char ch) {
         if (next == null) {
-            operator =ch;
-            next = new OperationTree();
-            next.left = this;
+            operator = ch;
+            appendNext();
         } else {
             next.append(ch);
         }
+    }
 
+    private void appendNext() {
+        next = new OperationList();
+        next.left = this;
+    }
+
+    public double findTree() {
+        return findTree(next);
     }
 
     public void operation() {
-        OperationTree find = findFastOperation();
+        OperationList find = findFastOperation();
 
         if (Objects.equals(find.operator, ')')) {
-            System.out.println("( ) 병합");
+            Log.info("( ) 병합");
             removeParentheses(find.left.left, find.left, find);
         } else {
             if (find.left != null) {
@@ -57,59 +73,45 @@ public class OperationTree {
         }
     }
 
-    public double findTree() {
-        return findTree(next);
-    }
 
-    private double findTree(OperationTree operationTree) {
+    private double findTree(OperationList operationList) {
         if (next != null) {
-            return operationTree.findTree(operationTree.next) + value;
+            return operationList.findTree(operationList.next) + value;
         } else {
             return value;
         }
     }
 
     //left - right 으로 병합
-    private void processing(OperationTree left, OperationTree oper, OperationTree right) {
+    private void processing(OperationList left, OperationList oper, OperationList right) {
 
-        double sum = arithmetic(left.value, oper.operator, right.value);
+        left.value = Operation.operation(left.value,oper.operator,right.value);
 
-        left.value = sum;
         if (right.next != null) {
             left.next = right.next;
             right.next.left = left;
         }
-        Garbage.remove(oper);
     }
 
     // ( a )  에서 a 만 남기는
-    private OperationTree removeParentheses(OperationTree left, OperationTree find, OperationTree right) {
+    private void removeParentheses(OperationList left, OperationList find, OperationList right) {
 
         //( 처리
         if (left.left != null) {
             // ( 왼쪽에 연산자가 있을경우
-            left.left.next=find;
-            find.left=left.left;
-            Garbage.remove(left);
-        }else{
-            Garbage.remove(find.left);
+            left.left.next = find;
+            find.left = left.left;
         }
 
-        // ) 처리
         if (right.next != null) {
-            // ) 오른쪽에 연산자가 있을경우
             right.next.left = find;
-            find.next=right.next;
-            Garbage.remove(right);
-        } else {
-            Garbage.remove(find.next,right);
+            find.next = right.next;
         }
 
-        return find;
     }
 
     //"(" 을 만날떄까지의 최우선순위 구하는 함수
-    private OperationTree findLeftOperation(OperationTree find, int min, OperationTree save) {
+    private OperationList findLeftOperation(OperationList find, int min, OperationList save) {
 
         if (find == null) {
             throw new CalculationSymbolException();
@@ -142,26 +144,18 @@ public class OperationTree {
         }
     }
 
-    private OperationTree findFastOperation() {
+    private OperationList findFastOperation() {
         return findFastOperation(this, Integer.MAX_VALUE, this);
     }
 
-    /**
-     * 최우선 연산이 필요한곳은 찾는 메소드
-     *
-     * @param find 재귀 하면서 비교할 값
-     * @param min  우선순위 비교 숫자
-     * @param save 우선순위가 제일 높은 객체
-     *
-     * @return 우선순위가 제일 높은 객체
-     */
-    private OperationTree findFastOperation(OperationTree find, int min, OperationTree save) {
+
+    private OperationList findFastOperation(OperationList find, int min, OperationList save) {
 
         // 다음 주소값이 존재 하면 true
         if (find.next != null) {
 
             //연산자가 아닐경우
-            if (find.operator =='\0') {
+            if (find.operator == '\0') {
                 return findFastOperation(find.next, min, save);
             }
 
@@ -171,7 +165,7 @@ public class OperationTree {
             // 연산자가 ")" 일떄
             if (findNum == 5) {
                 // ")" 을 만났을때 "(" 을 만날떄까지 left 를 만날떄까지 반복
-                System.out.println("left find -");
+                Log.info("left find - ");
                 return findLeftOperation(find, Integer.MAX_VALUE, save);
             }
 
@@ -186,26 +180,6 @@ public class OperationTree {
 
         //다음값이 존재하지 않으면 저장했던 save 을 리턴
         return save;
-    }
-
-    private double arithmetic(double left, char ch, double right) {
-
-        switch (ch) {
-            case '*':
-                System.out.println(left + " * " + right + " = "+ left * right);
-                return left * right;
-            case '/':
-                System.out.println(left + " / " + right+ " = "+left / right);
-                return left / right;
-            case '+':
-                System.out.println(left + " + " + right+ " = "+left + right);
-                return left + right;
-            case '-':
-                System.out.println(left + " - " + right+ " = "+ (left - right));
-                return left - right;
-        }
-
-        throw new CalculationSymbolException();
     }
 
     private static int prioritySymbol(char operator) {
