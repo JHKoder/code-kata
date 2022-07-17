@@ -2,6 +2,7 @@ package com.kata.calculation.character;
 
 import com.kata.calculation.Calculator;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -9,7 +10,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 @DisplayName("문자열 문자 계산기 테스트")
 public class CharacterTest {
 
-    private Calculator calculator;
+    @BeforeEach
+    void setup(){
+        Calculator.on();
+    }
 
     @ParameterizedTest
     @ValueSource(strings = {
