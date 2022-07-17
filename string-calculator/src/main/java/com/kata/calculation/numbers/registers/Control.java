@@ -1,91 +1,17 @@
-package com.kata.calculation.numbers;
+package com.kata.calculation.numbers.registers;
 
-import static com.kata.calculation.Validation.isNumber;
-import static com.kata.calculation.conversion.Converter.strToDouble;
-
+import com.kata.calculation.numbers.Register;
 import com.kata.common.Log;
 import com.kata.exception.CalculationSymbolException;
 import java.util.Objects;
 
-public class OperationList {
+public class Control {
 
-    private OperationList next = null;
-    private OperationList left = null;
-
-    private double value;
-    private char operator;
-
-    public OperationList() {
-    }
-
-
-    public void append(String str) {
-        if (isNumber(str) || str.length() > 1) {
-            append(strToDouble(str));
-        } else {
-            append(str.charAt(0));
-        }
-    }
-
-    private void append(double sp) {
-        if (next == null) {
-            value = sp;
-            appendNext();
-        } else {
-            next.append(sp);
-        }
-    }
-
-    private void append(char ch) {
-        if (next == null) {
-            operator = ch;
-            appendNext();
-        } else {
-            next.append(ch);
-        }
-    }
-
-    private void appendNext() {
-        next = new OperationList();
-        next.left = this;
-    }
-
-    public double findTree() {
-        return findTree(next);
-    }
-
-    public void operation() {
-        OperationList find = findFastOperation();
-
-        if (Objects.equals(find.operator, ')')) {
-            Log.info("( ) 병합");
-            removeParentheses(find.left.left, find.left, find);
-        } else {
-            if (find.left != null) {
-                processing(find.left, find, find.next);
-            } else {
-                return;
-            }
-        }
-
-        if (next != null) {
-            operation();
-        }
-    }
-
-
-    private double findTree(OperationList operationList) {
-        if (next != null) {
-            return operationList.findTree(operationList.next) + value;
-        } else {
-            return value;
-        }
-    }
-
+    //제어
     //left - right 으로 병합
-    private void processing(OperationList left, OperationList oper, OperationList right) {
+    public static void processing(Register left, Register oper, Register right) {
 
-        left.value = Operation.operation(left.value,oper.operator,right.value);
+        left.value = Operation.operation(left.value, oper.operator, right.value);
 
         if (right.next != null) {
             left.next = right.next;
@@ -93,8 +19,9 @@ public class OperationList {
         }
     }
 
+    //제어
     // ( a )  에서 a 만 남기는
-    private void removeParentheses(OperationList left, OperationList find, OperationList right) {
+    public static void removeParentheses(Register left, Register find, Register right) {
 
         //( 처리
         if (left.left != null) {
@@ -110,8 +37,9 @@ public class OperationList {
 
     }
 
+    //제어
     //"(" 을 만날떄까지의 최우선순위 구하는 함수
-    private OperationList findLeftOperation(OperationList find, int min, OperationList save) {
+    public Register findLeftOperation(Register find, int min, Register save) {
 
         if (find == null) {
             throw new CalculationSymbolException();
@@ -144,12 +72,14 @@ public class OperationList {
         }
     }
 
-    private OperationList findFastOperation() {
-        return findFastOperation(this, Integer.MAX_VALUE, this);
+    //제어
+    public Register findFastOperation(Register register) {
+        return findFastOperation(register, Integer.MAX_VALUE, register);
     }
 
 
-    private OperationList findFastOperation(OperationList find, int min, OperationList save) {
+    //제어
+    public Register findFastOperation(Register find, int min, Register save) {
 
         // 다음 주소값이 존재 하면 true
         if (find.next != null) {
@@ -182,7 +112,7 @@ public class OperationList {
         return save;
     }
 
-    private static int prioritySymbol(char operator) {
+    public static int prioritySymbol(char operator) {
         switch (operator) {
             case '*':
                 return 1;

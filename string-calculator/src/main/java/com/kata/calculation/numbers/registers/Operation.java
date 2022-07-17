@@ -1,4 +1,4 @@
-package com.kata.calculation.numbers;
+package com.kata.calculation.numbers.registers;
 
 import com.kata.common.Log;
 import com.kata.exception.CalculationSymbolException;
