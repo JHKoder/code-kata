@@ -6,7 +6,6 @@ import java.text.DecimalFormat;
 
 public class Number implements Calculation {
 
-    private static final DecimalFormat df = new DecimalFormat("#.##");
     private String pram;
 
     public Number(String pram) {
@@ -15,11 +14,11 @@ public class Number implements Calculation {
 
     @Override
     public String arithmetic() {
-        OperationList opera = Converter.strToOperation(pram);
+        Register opera = Converter.strToOperation(pram);
 
-        opera.operation();
+        Register.logic.operation(opera);
 
-        return df.format(opera.findTree()) + "";
+        return Register.outputOfPower.findTree(opera);
     }
 
 }
