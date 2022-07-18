@@ -7,9 +7,8 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Calculator.on();
-        Calculator.input((BufferInput.readLine()));
-        Calculator.off();
+        Calculator calculator = new Calculator();
+        calculator.input(BufferInput.readLine());
     }
 
 }

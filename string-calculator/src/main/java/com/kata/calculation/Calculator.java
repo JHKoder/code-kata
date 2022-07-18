@@ -1,33 +1,36 @@
 package com.kata.calculation;
 
+import static com.kata.calculation.Validation.formulaVerification;
 
-import com.kata.exception.CalculationPowerException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Calculator {
 
-    private static boolean power  = false;
+    public Integer input(String str) {
+        formulaVerification(str);
 
-    private Calculator() {
+        List<String> operation = Arrays.stream(str.split(" "))
+                .filter(ls -> Validation.isSymbol(ls.charAt(0)))
+                .collect(Collectors.toUnmodifiableList());
+
+        List<Integer> numbers = new ArrayList<>(Arrays.stream(Arrays.stream(str.split(" "))
+                        .filter(Validation::isNumber)
+                        .flatMapToInt(ls -> IntStream.of(Integer.parseInt(ls)))
+                        .toArray())
+                .boxed()
+                .collect(Collectors.toUnmodifiableList()));
+
+        return calculation(operation, numbers);
     }
 
-    public static String input(String str) {
-        isPower();
-        Calculation result = CalculatorFilter.of(str);
-        return result.arithmetic();
-    }
-
-    public static void isPower(){
-        if(!power){
-            throw new CalculationPowerException();
+    private Integer calculation(List<String> operation, List<Integer> numbers) {
+        for (int i = 1; i < numbers.size(); i++) {
+            numbers.set(i, Operation.operation(numbers.get(i - 1), operation.get(i - 1), numbers.get(i)));
         }
+        return numbers.get(numbers.size() - 1);
     }
-
-    public static void on() {
-        power=true;
-    }
-
-    public static void off() {
-        power= false;
-    }
-
 }
