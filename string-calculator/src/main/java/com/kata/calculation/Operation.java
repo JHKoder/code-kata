@@ -2,9 +2,8 @@ package com.kata.calculation;
 
 import com.kata.exception.CalculationSymbolException;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
-import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 
 public enum Operation {
     PULS("+", Integer::sum),
@@ -12,19 +11,12 @@ public enum Operation {
     MULTIPLY("*", (num1, num2) -> num1 * num2),
     DIVIDED("/", (num1, num2) -> num1 / num2);
 
-    private String operator;
-    private BiFunction<Integer, Integer, Integer> expression;
+    private final String operator;
+    private final BinaryOperator<Integer> expression;
 
-    Operation(String operator, BiFunction<Integer, Integer, Integer> expression) {
+    Operation(String operator, BinaryOperator<Integer> expression) {
         this.operator = operator;
         this.expression = expression;
-    }
-
-    public static Integer calculation(List<String> operation, List<Integer> numbers) {
-        for (int i = 1; i < numbers.size(); i++) {
-            numbers.set(i, Operation.operation(numbers.get(i - 1), operation.get(i - 1), numbers.get(i)));
-        }
-        return numbers.get(numbers.size() - 1);
     }
 
     public static Integer operation(Integer left, String operator, Integer right) {
@@ -38,5 +30,5 @@ public enum Operation {
     private Integer calculate(Integer left, Integer right) {
         return this.expression.apply(left, right);
     }
-    
+
 }
