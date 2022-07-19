@@ -1,6 +1,7 @@
 package com.kata.calculation;
 
 import com.kata.exception.CalculationSymbolException;
+import com.kata.io.BufferInput;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -38,7 +39,7 @@ public class ValidationTest {
     })
     @DisplayName("formulaVerification 검증이 성공한다.")
     void formulaVerification(String opera) {
-        Assertions.assertThat(Validation.formulaVerification(opera))
+        Assertions.assertThat(BufferInput.formulaVerification(opera))
                 .isEqualTo(true);
     }
 
@@ -50,7 +51,7 @@ public class ValidationTest {
     })
     @DisplayName("formulaVerification 검증이 실패한다.")
     void formulaVerificationException(String opera) {
-        Assertions.assertThat(Validation.formulaVerification(opera))
+        Assertions.assertThat(BufferInput.formulaVerification(opera))
                 .isEqualTo(false);
     }
 

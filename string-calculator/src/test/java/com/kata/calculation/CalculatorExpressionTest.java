@@ -4,16 +4,16 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toCollection;
 
 import java.util.LinkedList;
+import org.junit.jupiter.api.Test;
 
-public class Calculator {
+public class CalculatorExpressionTest {
 
-    public Integer practice(String str) {
-
+    @Test
+    void test(){
+        String str="100 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10";
         CalculatorExpression calculatorExpression = new CalculatorExpression(stream(str.split(" "))
                 .collect(toCollection(LinkedList::new)));
 
-        return calculatorExpression.calculation();
+        System.out.println(calculatorExpression.calculation());
     }
-
-
 }
