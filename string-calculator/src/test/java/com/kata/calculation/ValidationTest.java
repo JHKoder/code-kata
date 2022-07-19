@@ -1,7 +1,9 @@
 package com.kata.calculation;
 
+import static com.kata.io.BufferInput.calculationInputValidation;
+
 import com.kata.exception.CalculationSymbolException;
-import com.kata.io.BufferInput;
+import com.kata.exception.CalculatorInputException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -31,17 +33,6 @@ public class ValidationTest {
                 .hasMessage("잘못된 기호가 들어갔습니다.");
     }
 
-    @ParameterizedTest
-    @ValueSource(strings = {
-            "1 + 2 * 3 / 2 - 1",
-            "1200 + 123 / 12 * 1",
-            "1200 * 123 / 12 * 1 * 2"
-    })
-    @DisplayName("formulaVerification 검증이 성공한다.")
-    void formulaVerification(String opera) {
-        Assertions.assertThat(BufferInput.formulaVerification(opera))
-                .isEqualTo(true);
-    }
 
     @ParameterizedTest
     @ValueSource(strings = {
@@ -51,8 +42,9 @@ public class ValidationTest {
     })
     @DisplayName("formulaVerification 검증이 실패한다.")
     void formulaVerificationException(String opera) {
-        Assertions.assertThat(BufferInput.formulaVerification(opera))
-                .isEqualTo(false);
+        Assertions.assertThatThrownBy(() -> calculationInputValidation(opera))
+                .isInstanceOf(CalculatorInputException.class)
+                .hasMessage("계산기 입력 오류");
     }
 
 }
