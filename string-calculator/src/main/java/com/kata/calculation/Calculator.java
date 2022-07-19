@@ -1,7 +1,5 @@
 package com.kata.calculation;
 
-import static com.kata.calculation.Validation.formulaVerification;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +9,6 @@ import java.util.stream.IntStream;
 public class Calculator {
 
     public Integer practice(String str) {
-        formulaVerification(str);
 
         List<String> strings = Arrays.stream(str.split(" "))
                 .collect(Collectors.toUnmodifiableList());
