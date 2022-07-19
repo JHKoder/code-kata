@@ -1,6 +1,5 @@
 package com.kata.calculation;
 
-
 import java.util.regex.Pattern;
 
 public class Validation {

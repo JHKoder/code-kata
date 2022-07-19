@@ -15,5 +15,4 @@ public class Main {
         display.print();
         bufferInput.close();
     }
-
 }
