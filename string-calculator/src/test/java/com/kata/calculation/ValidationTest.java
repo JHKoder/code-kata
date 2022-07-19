@@ -30,4 +30,28 @@ public class ValidationTest {
                 .hasMessage("잘못된 기호가 들어갔습니다.");
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "1 + 2 * 3 / 2 - 1",
+            "1200 + 123 / 12 * 1",
+            "1200 * 123 / 12 * 1 * 2"
+    })
+    @DisplayName("formulaVerification 검증이 성공한다.")
+    void formulaVerification(String opera) {
+        Assertions.assertThat(Validation.formulaVerification(opera))
+                .isEqualTo(true);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {
+            "1a+b8",
+            "1 +2/ + 1",
+            "1 + b + 3 / * 2b"
+    })
+    @DisplayName("formulaVerification 검증이 실패한다.")
+    void formulaVerificationException(String opera) {
+        Assertions.assertThat(Validation.formulaVerification(opera))
+                .isEqualTo(false);
+    }
+
 }
