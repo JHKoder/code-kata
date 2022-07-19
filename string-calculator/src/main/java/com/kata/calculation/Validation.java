@@ -5,27 +5,16 @@ import java.util.regex.Pattern;
 
 public class Validation {
 
-    private static final String EQUATION_PATTERN = "[0-9]*.[?+?/?*?-].[0-9$]*";
-
     public static boolean formulaVerification(String str) {
-        return Pattern.matches(EQUATION_PATTERN, str);
+        return Pattern.matches("([\\d\\s]+[+*/-]+ [\\s\\d]){1,}", str);
     }
 
-    public static boolean isSymbol(char ch) {
-        return ch == '+' || ch == '-' || ch == '*' || ch == '/';
-    }
-
-    public static boolean isNumber(char ch) {
-        return '0' <= ch && '9' >= ch;
+    public static boolean isSymbol(String str){
+        return Pattern.matches("[*/+-]",str);
     }
 
     public static boolean isNumber(String str) {
-        for (int i = 0; i < str.length(); i++) {
-            if (!isNumber(str.charAt(i))) {
-                return false;
-            }
-        }
-        return true;
+        return Pattern.matches("[0-9]",str);
     }
 
 }
