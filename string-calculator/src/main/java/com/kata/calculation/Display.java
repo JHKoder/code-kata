@@ -2,7 +2,7 @@ package com.kata.calculation;
 
 public class Display {
 
-    private Integer value;
+    private final Integer value;
 
     public Display(Integer value) {
         this.value=value;
