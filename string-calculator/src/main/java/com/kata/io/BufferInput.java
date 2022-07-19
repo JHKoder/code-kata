@@ -1,18 +1,36 @@
 package com.kata.io;
 
+import com.kata.calculation.Calculator;
+import java.io.BufferedReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class BufferInput {
 
-    private static BufferedReader br = new BufferedReader(new InputStreamReader((System.in)));
+    private BufferedReader br = null;
 
-    private BufferInput() {
+    public BufferInput(Calculator calculator) {
+        if (calculator == null) {
+            return;
+        }
+        br = new BufferedReader(new InputStreamReader((System.in)));
     }
 
-    public static String readLine() throws IOException {
-        return br.readLine();
+    public String input() {
+        try {
+            return br.readLine();
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    public void close() {
+        try {
+            br.close();
+        } catch (Exception e) {
+            throw new IllegalArgumentException();
+        }
     }
 
 }

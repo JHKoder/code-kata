@@ -2,6 +2,7 @@ package com.kata.calculation;
 
 import com.kata.exception.CalculationSymbolException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 import java.util.function.BiFunction;
 
@@ -19,6 +20,13 @@ public enum Operation {
         this.expression = expression;
     }
 
+    public static Integer calculation(List<String> operation, List<Integer> numbers) {
+        for (int i = 1; i < numbers.size(); i++) {
+            numbers.set(i, Operation.operation(numbers.get(i - 1), operation.get(i - 1), numbers.get(i)));
+        }
+        return numbers.get(numbers.size() - 1);
+    }
+
     public static Integer operation(Integer left, String operator, Integer right) {
         return Arrays.stream(values())
                 .filter(ls -> Objects.equals(ls.operator, operator))
@@ -30,4 +38,5 @@ public enum Operation {
     private Integer calculate(Integer left, Integer right) {
         return this.expression.apply(left, right);
     }
+    
 }

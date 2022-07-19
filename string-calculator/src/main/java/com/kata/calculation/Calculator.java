@@ -10,27 +10,22 @@ import java.util.stream.IntStream;
 
 public class Calculator {
 
-    public Integer input(String str) {
+    public Integer practice(String str) {
         formulaVerification(str);
 
-        List<String> operation = Arrays.stream(str.split(" "))
-                .filter(ls -> Validation.isSymbol(ls.charAt(0)))
+        List<String> strings = Arrays.stream(str.split(" "))
                 .collect(Collectors.toUnmodifiableList());
 
-        List<Integer> numbers = new ArrayList<>(Arrays.stream(Arrays.stream(str.split(" "))
-                        .filter(Validation::isNumber)
-                        .flatMapToInt(ls -> IntStream.of(Integer.parseInt(ls)))
-                        .toArray())
+        List<String> operation = strings.stream()
+                .filter(Validation::isSymbol)
+                .collect(Collectors.toUnmodifiableList());
+
+        List<Integer> numbers = new ArrayList<>(strings.stream()
+                .filter(Validation::isNumber)
+                .flatMapToInt(ls -> IntStream.of(Integer.parseInt(ls)))
                 .boxed()
                 .collect(Collectors.toUnmodifiableList()));
 
-        return calculation(operation, numbers);
-    }
-
-    private Integer calculation(List<String> operation, List<Integer> numbers) {
-        for (int i = 1; i < numbers.size(); i++) {
-            numbers.set(i, Operation.operation(numbers.get(i - 1), operation.get(i - 1), numbers.get(i)));
-        }
-        return numbers.get(numbers.size() - 1);
+        return Operation.calculation(operation, numbers);
     }
 }

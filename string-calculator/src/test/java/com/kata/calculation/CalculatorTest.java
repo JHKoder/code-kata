@@ -17,9 +17,8 @@ public class CalculatorTest {
     void calculatorInputNormal(String str, Integer result) {
         Calculator calculator = new Calculator();
 
-        Assertions.assertThat(calculator.input(str))
+        Assertions.assertThat(calculator.practice(str))
                 .isEqualTo(result);
     }
-
 
 }
