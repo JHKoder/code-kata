@@ -33,6 +33,32 @@ public class Time {
         }
     }
 
+    public static List<Integer> slice(String str) {
+        return Arrays.stream(str.split(":"))
+                .flatMapToInt(ls -> IntStream.of(Integer.parseInt(ls)))
+                .boxed()
+                .collect(Collectors.toList());
+    }
+
+    public static Time localTimeToTime(LocalTime localTime) {
+        return new Time(localTime.getHour() + ":" + localTime.getMinute() + ":" + localTime.getSecond());
+    }
+
+    public void print() {
+        System.out.println(this);
+    }
+
+    public boolean equals(Time object) {
+        return Objects.equals(this.time.get(0), object.time.get(0)) &&
+                Objects.equals(this.time.get(1), object.time.get(1)) &&
+                Objects.equals(this.time.get(2), object.time.get(2));
+    }
+
+    @Override
+    public String toString(){
+        return time.get(0) + ":" + time.get(1) + ":" + time.get(2);
+    }
+
     private void secondUp() {
         int second = time.get(2) + 1;
         time.set(2, second);
@@ -48,35 +74,7 @@ public class Time {
         time.set(0, hour);
     }
 
-    public static List<Integer> slice(String str) {
-        return Arrays.stream(str.split(":"))
-                .flatMapToInt(ls -> IntStream.of(Integer.parseInt(ls)))
-                .boxed()
-                .collect(Collectors.toList());
-    }
-
-    public static Time localTimeToTime(LocalTime localTime) {
-        return new Time(localTime.getHour() + ":" + localTime.getMinute() + ":" + localTime.getSecond());
-    }
-
-    public void print() {
-        System.out.println(time.get(0) + ":" + time.get(1) + ":" + time.get(2));
-    }
-
-    public String toString() {
-        return time.get(0) + ":" + time.get(1) + ":" + time.get(2);
-    }
-
-    public boolean equals(List<Integer> time) {
-        return Objects.equals(this.time.get(0), time.get(0)) &&
-                Objects.equals(this.time.get(1), time.get(1)) &&
-                Objects.equals(this.time.get(2), time.get(2));
-    }
-
     private void timePattern(String str) {
-
-        System.out.println(str);
-        System.out.println(str.matches("([0-9]|0[0-9]|[0-2][0-3]):([0-9]|0[0-9]|[0-5][0-9]):([0-5][0-9]|[0-9])"));
         if (!str.matches("([0-9]|0[0-9]|[0-2][0-3]):([0-9]|0[0-9]|[0-5][0-9]):([0-5][0-9]|[0-9])")) {
             throw new TimeCodeException();
         }

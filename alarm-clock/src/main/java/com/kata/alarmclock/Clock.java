@@ -6,19 +6,22 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-// 이 객체는 시계 바늘을 담당한다.
-public class Clock {
+public class Clock extends Thread{
 
-    private List<Time> timer = new ArrayList<>();
+    private final List<Time> timer = new ArrayList<>();
 
     public Clock() {
         timer.add(localTimeToTime(LocalTime.now()));
     }
 
-    public void print() {
+    public void timeUp() {
         timer.get(0).print();
         timer.get(0).timeUp();
     }
 
+    @Override
+    public void run() {
+        timeUp();
+    }
 
 }

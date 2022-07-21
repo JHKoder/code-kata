@@ -1,28 +1,39 @@
 package com.kata.alarmclock;
 
+import static com.kata.alarmclock.Time.localTimeToTime;
+
+import com.kata.alarmclock.exception.TimeSleepException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Alarm {
+public class Alarm extends Thread{
 
-    private List<Time> timer = new ArrayList<>();
-
-    public Alarm() {
-    }
+    private final List<Time> timer = new ArrayList<>();
 
     public void add(Time time) {
-        timer.add(time);
+        this.timer.add(time);
     }
 
-    public boolean checkAlarm(List<Integer> timer) {
-        return this.timer.stream()
-                .anyMatch(ls -> ls.equals(timer));
+    public void checkAlarm() {
+        Time time = localTimeToTime(LocalTime.now());
+
+        for(Time ti:timer){
+            if(time.equals(ti)){
+                print();
+            }
+        }
     }
 
-    public void print() throws InterruptedException {
+    public void print() {
         for (int i = 0; i < 10; i++) {
             System.out.println("삐삐삐--");
-            Thread.sleep(1000);
+
+            try {
+                sleep(1000);
+            } catch (InterruptedException ignored) {
+                throw new TimeSleepException();
+            }
         }
     }
 
