@@ -1,12 +1,11 @@
 package com.kata.calculation;
 
 import static com.kata.calculation.Operation.operation;
-import static java.util.stream.Collectors.toCollection;
+import static java.lang.Integer.parseInt;
 
-import com.kata.exception.CalculatorException;
 import java.util.LinkedList;
+import java.util.Objects;
 import java.util.Queue;
-import java.util.stream.IntStream;
 
 public class CalculatorExpression {
 
@@ -17,26 +16,13 @@ public class CalculatorExpression {
     }
 
     public Integer calculation() {
-        Queue<String> operation = getOperationList();
-        Queue<Integer> numbers = getNumbersList();
 
-        return numbers.stream()
-                .reduce((left, right) -> operation(left, operation.peek(), right))
-                .orElseThrow(CalculatorException::new);
-    }
+        Integer sum = parseInt(Objects.requireNonNull(calculatorList.poll()));
 
-    private Queue<String> getOperationList() {
-        return calculatorList.stream()
-                .filter(ls -> ls.matches("[*/+-]"))
-                .collect(toCollection(LinkedList::new));
-    }
-
-    private Queue<Integer> getNumbersList() {
-        return calculatorList.stream()
-                .filter(ls -> ls.matches("[0-9]{1,}"))
-                .flatMapToInt(ls -> IntStream.of(Integer.parseInt(ls)))
-                .boxed()
-                .collect(toCollection(LinkedList::new));
+        while(true){
+            if(calculatorList.peek() == null) return sum;
+            sum = operation(sum, calculatorList.poll(),  parseInt(Objects.requireNonNull(calculatorList.poll())));
+        }
     }
 
 }
