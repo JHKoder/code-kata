@@ -2,47 +2,42 @@ package com.kata.alarmclock;
 
 import com.kata.alarmclock.exception.TimeSleepException;
 
-public class AlarmClock{
+public class AlarmClock extends Thread {
 
-    private final Battery battery;
-    private final Clock clock;
-    private final Alarm alarm;
+    private final Alarm alarm = new Alarm();
+    private final Clock clock = new Clock();
 
-    public AlarmClock(Alarm alarm, Battery battery) {
-        this.battery = battery;
-        this.alarm = alarm;
-        clock = new Clock();
+    public AlarmClock() {
+        start();
+    }
+
+    public void alarm(int hour, int minute, int second) {
+        alarm.add(hour, minute, second);
     }
 
     public void start() {
-        ThreadGroup group = new ThreadGroup("Alarm-Clock");
+        threadLoopRun(() -> {
+            Time time = clock.timer();
+            alarm.checkAlarm(time);
+        });
+    }
 
-        Thread clockRunnable = new Thread(group, () -> {
-            loop(clock::timeUp);
-        },"clock");
-        Thread batteryRunnable = new Thread(group, () -> {
-            loop(battery.useOneSecond(group));
-        },"battery");
-        Thread alarmRunnable = new Thread(group, () -> {
-            loop(alarm::checkAlarm);
-        },"alarm");
-
-        clockRunnable.start();
-        batteryRunnable.start();
-        alarmRunnable.start();
-
+    private void threadLoopRun(Runnable runnable) {
+        new Thread(() -> loop(runnable), "timer").start();
     }
 
     private void loop(Runnable runnable) {
-        while(true){
+        timeSleep(200);
+
+        while (true) {
             runnable.run();
-            timeSleep();
+            timeSleep(1000);
         }
     }
 
-    public  void timeSleep() {
+    private void timeSleep(long timeOut) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(timeOut);
         } catch (InterruptedException ignored) {
             throw new TimeSleepException();
         }

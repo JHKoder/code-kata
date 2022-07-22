@@ -1,40 +1,33 @@
 package com.kata.alarmclock;
 
-import static com.kata.alarmclock.Time.localTimeToTime;
+import com.kata.alarmclock.exception.AlarmClockShutdownException;
+import java.util.LinkedList;
+import java.util.Queue;
 
-import com.kata.alarmclock.exception.TimeSleepException;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
+public class Alarm {
 
-public class Alarm extends Thread{
+    private final Queue<Time> timer = new LinkedList<>();
 
-    private final List<Time> timer = new ArrayList<>();
-
-    public void add(Time time) {
-        this.timer.add(time);
+    public Alarm() {
     }
 
-    public void checkAlarm() {
-        Time time = localTimeToTime(LocalTime.now());
-
-        for(Time ti:timer){
-            if(time.equals(ti)){
-                print();
-            }
-        }
+    public void add(int hour, int minute, int second) {
+        timer.add(new Time(hour, minute, second));
     }
 
-    public void print() {
-        for (int i = 0; i < 10; i++) {
-            System.out.println("삐삐삐--");
-
-            try {
-                sleep(1000);
-            } catch (InterruptedException ignored) {
-                throw new TimeSleepException();
-            }
+    public void checkAlarm(Time time) {
+        if (timer.size()==0) {
+            throw new AlarmClockShutdownException();
         }
+        timer.removeIf(queue -> queueEqualsIf(queue, time));
+    }
+
+    public boolean queueEqualsIf(Time queue, Time time) {
+        if (queue.equals(time)) {
+            System.out.println("삐삐삐");
+            return true;
+        }
+        return false;
     }
 
 }

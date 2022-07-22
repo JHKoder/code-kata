@@ -1,27 +1,24 @@
 package com.kata.alarmclock;
 
-import static com.kata.alarmclock.Time.localTimeToTime;
-
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Clock extends Thread{
+public class Clock {
 
-    private final List<Time> timer = new ArrayList<>();
+    private final Time time;
 
     public Clock() {
-        timer.add(localTimeToTime(LocalTime.now()));
+        LocalTime localTime = LocalTime.now();
+
+        this.time = new Time(localTime.getHour(), localTime.getMinute(), localTime.getSecond());
     }
 
-    public void timeUp() {
-        timer.get(0).print();
-        timer.get(0).timeUp();
+    public Time timer() {
+        System.out.println(timerMessage());
+        return time.timeUp(LocalTime.now());
     }
 
-    @Override
-    public void run() {
-        timeUp();
+    public String timerMessage() {
+        return time.toString();
     }
 
 }
