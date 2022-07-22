@@ -1,18 +1,14 @@
 package com.kata.io;
 
-import com.kata.calculation.Calculator;
 import com.kata.exception.CalculatorInputException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class BufferInput {
 
-    private BufferedReader br = null;
+    private final BufferedReader br;
 
-    public BufferInput(Calculator calculator) {
-        if (calculator == null) {
-            return;
-        }
+    public BufferInput() {
         br = new BufferedReader(new InputStreamReader((System.in)));
     }
 
@@ -35,7 +31,7 @@ public class BufferInput {
     }
 
     public static void calculationInputValidation(String str) {
-        if(!str.matches("([\\d\\s]+[+*/-]+ [\\s\\d]){1,}")){
+        if (!str.matches("([\\d\\s]+[+*/-]+ [\\s\\d]){1,}")) {
             throw new CalculatorInputException();
         }
     }
