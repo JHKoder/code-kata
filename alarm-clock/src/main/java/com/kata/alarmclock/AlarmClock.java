@@ -1,6 +1,7 @@
 package com.kata.alarmclock;
 
 import com.kata.alarmclock.exception.TimeSleepException;
+import java.util.Optional;
 
 public class AlarmClock extends Thread {
 
@@ -16,10 +17,7 @@ public class AlarmClock extends Thread {
     }
 
     public void start() {
-        threadLoopRun(() -> {
-            Time time = clock.timer();
-            alarm.checkAlarm(time);
-        });
+        threadLoopRun(() -> alarm.checkAlarm(clock.timer()));
     }
 
     private void threadLoopRun(Runnable runnable) {
@@ -27,17 +25,14 @@ public class AlarmClock extends Thread {
     }
 
     private void loop(Runnable runnable) {
-        timeSleep(200);
-
-        while (true) {
-            runnable.run();
-            timeSleep(1000);
-        }
+        runnable.run();
+        timeSleep();
+        loop(runnable);
     }
 
-    private void timeSleep(long timeOut) {
+    private void timeSleep() {
         try {
-            Thread.sleep(timeOut);
+            Thread.sleep(900);
         } catch (InterruptedException ignored) {
             throw new TimeSleepException();
         }

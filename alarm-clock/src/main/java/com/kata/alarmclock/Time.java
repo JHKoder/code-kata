@@ -2,32 +2,24 @@ package com.kata.alarmclock;
 
 import com.kata.alarmclock.exception.TimeCodeException;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Time {
 
-    private List<Integer> time = new ArrayList<>();
+    private List<Integer> time;
 
     public Time(int hour, int minute, int second) {
         pattern(hour, minute, second);
-        time.addAll(List.of(hour, minute, second));
+        time = List.of(hour, minute, second);
     }
 
     public Time timeUp(LocalTime localTime) {
-        time.set(2, localTime.getSecond());
-        time.set(1, localTime.getMinute());
-        time.set(0, localTime.getHour());
+        time = List.of(localTime.getHour(), localTime.getMinute(), localTime.getSecond());
         return this;
     }
 
     public boolean equals(Time object) {
-        if (object==null) return false;
-
-        return Objects.equals(this.time.get(0), object.time.get(0)) &&
-                Objects.equals(this.time.get(1), object.time.get(1)) &&
-                Objects.equals(this.time.get(2), object.time.get(2));
+        return this.time.equals(object.time);
     }
 
     @Override
@@ -36,9 +28,7 @@ public class Time {
     }
 
     private void pattern(int hour, int minute, int second) {
-        if (!(isHour(hour) &&
-                isMinute(minute) &&
-                isSecond(second))) {
+        if (!(isHour(hour) && isMinute(minute) && isSecond(second))) {
             throw new TimeCodeException();
         }
     }
