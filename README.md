@@ -4,5 +4,5 @@
 
 ---
 ## 코드 카타 리스트
-##### 1. 문자열 계산기 [(Link)](https://github.com/oiNeh/code-kata/tree/main/alarm-clock)
-##### 2. 알람 시계 [(Link)](https://github.com/oiNeh/code-kata/tree/main/string-calculator)
+##### 1. 문자열 계산기 [(Link)](https://github.com/oiNeh/code-kata/tree/main/string-calculator)
+##### 2. 알람 시계 [(Link)](https://github.com/oiNeh/code-kata/tree/main/alarm-clock)
