@@ -1,5 +1,7 @@
 package com.kata.alarmclock;
 
+import static com.google.common.truth.Truth.assertThat;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,11 +12,9 @@ public class AlarmTest {
     @Test
     @DisplayName("알람 추가")
     void test() {
-        AlarmClock alarmClock = new AlarmClock();
+        Alarm alarm = new Alarm();
 
-        alarmClock.alarm(1, 1, 1);
-
-        Assertions.assertThatCode(() -> alarmClock.alarm(1, 1, 1))
+        Assertions.assertThatCode(() -> alarm.addTask("1:1:1"))
                 .isEqualTo(null);
     }
 
@@ -22,13 +22,10 @@ public class AlarmTest {
     @DisplayName("알람이 울린다")
     void test2() {
 
-        Alarm alarm = new Alarm();
+        Time target = new Time("1:1:1");
+        Time compare = new Time("1:1:1");
 
-        Time target = new Time(1, 1, 1);
-        Time compare = new Time(1, 1, 1);
-
-        Assertions.assertThat(alarm.queueEqualsIf(target, compare))
-                .isTrue();
+        assertThat(target).isEqualTo(compare);
     }
 
 }

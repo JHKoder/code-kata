@@ -1,48 +1,41 @@
 package com.kata.alarmclock;
 
-import com.kata.alarmclock.exception.TimeCodeException;
 import java.time.LocalTime;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 public class Time {
 
-    private List<Integer> time;
+    private LocalTime localTime;
 
-    public Time(int hour, int minute, int second) {
-        pattern(hour, minute, second);
-        time = List.of(hour, minute, second);
+    public Time(String str) {
+        localTime = strToLocalTime(str);
     }
 
-    public Time timeUp(LocalTime localTime) {
-        time = List.of(localTime.getHour(), localTime.getMinute(), localTime.getSecond());
-        return this;
+    public Time() {
+        localTime = LocalTime.now();
     }
 
-    public boolean equals(Time object) {
-        return this.time.equals(object.time);
+    public void secondUp() {
+        localTime = LocalTime.now();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.localTime.toString().equals(obj.toString());
     }
 
     @Override
     public String toString() {
-        return time.get(0) + ":" + time.get(1) + ":" + time.get(2);
+        return localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 
-    private void pattern(int hour, int minute, int second) {
-        if (!(isHour(hour) && isMinute(minute) && isSecond(second))) {
-            throw new TimeCodeException();
-        }
-    }
+    private LocalTime strToLocalTime(String str) {
+        int[] times = Arrays.stream(str.split(":"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
 
-    private boolean isHour(int hour) {
-        return hour >= 0 && hour <= 23;
-    }
-
-    private boolean isMinute(int minute) {
-        return minute >= 0 && minute <= 59;
-    }
-
-    private boolean isSecond(int second) {
-        return second >= 0 && second <= 59;
+        return LocalTime.of(times[0], times[1], times[2]);
     }
 
 }
