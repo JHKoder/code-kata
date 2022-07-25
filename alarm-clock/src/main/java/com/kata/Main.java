@@ -7,8 +7,12 @@ public class Main {
     public static void main(String[] args) {
         AlarmClock alarmClock = new AlarmClock();
 
-        alarmClock.alarm(9, 30, 1);
-        alarmClock.alarm(9, 30, 5);
+        alarmClock.addTask("21:12:50");
+        alarmClock.addTask("21:13:10");
+        alarmClock.addTask("21:13:20");
+
+        alarmClock.run();
+
     }
 
 }
