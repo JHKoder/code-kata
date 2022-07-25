@@ -6,8 +6,8 @@ import java.util.TimerTask;
 
 public class Clock extends Thread {
 
-    private Time time;
-    Alarm alarm;
+    private final Time time;
+    private final Alarm alarm;
 
     public Clock(Alarm alarm) {
         time = new Time();
