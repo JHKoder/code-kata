@@ -19,9 +19,9 @@ public class HourTest {
     @DisplayName("시 괄호 테스트")
     void create(String time, String result) {
         String[][] arr = {
-                {"한", "두", "세", "네", "다", "섯"},
-                {"여", "섯", "일", "곱", "여", "덟"},
-                {"아", "홉", "열", "한", "두", "시"}
+                {" 한 ", " 두 ", " 세 ", " 네 ", " 다 ", " 섯 "},
+                {" 여 ", " 섯 ", " 일 ", " 곱 ", " 여 ", " 덟 "},
+                {" 아 ", " 홉 ", " 열 ", " 한 ", " 두 ", " 시 "}
         };
 
         List<String> list = List.of(result.split(" "));
