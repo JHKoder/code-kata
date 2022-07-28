@@ -1,12 +1,12 @@
 package code.kata.koreanclock;
 
-public class Meridian {
+public class Meridian extends ParenthesisCombination implements ParenthesisCombinationInterface {
 
     private final int hour;
     private String[][] arr;
 
-    public Meridian(String[][] arr,int hour) {
-        this.arr=arr;
+    public Meridian(String[][] arr, int hour) {
+        this.arr = arr;
         this.hour = hour;
     }
 
@@ -24,8 +24,5 @@ public class Meridian {
         return arr;
     }
 
-    public String parentheses(String str) {
-        return "[" + str + "]";
-    }
 
 }

@@ -4,15 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Hour {
+public class Hour extends ParenthesisCombination {
 
+    private static final Map<String, List<Integer>> hourMap = new HashMap<>();
     private String hour;
-    private Map<String, List<Integer>> hourMap = new HashMap<>();
     private String[][] arr;
 
-    public Hour(String[][] arr, String hour) {
-        this.arr = arr.clone();
-        this.hour = hour;
+    static {
         hourMap.put("01", List.of(0, 0));
         hourMap.put("02", List.of(0, 1));
         hourMap.put("03", List.of(0, 2));
@@ -28,18 +26,17 @@ public class Hour {
         hourMap.put("00", List.of(2, 2, 2, 4));
     }
 
+    public Hour(String[][] arr, String hour) {
+        this.arr = arr.clone();
+        this.hour = hour;
+    }
+
     public String[][] processing() {
         List<Integer> xyList = hourMap.get(hour);
 
-        for (int i = 0; i < xyList.size(); i += 2) {
-            arr[xyList.get(i)][xyList.get(i + 1)] = parentheses(arr[xyList.get(i)][xyList.get(i + 1)]);
-        }
+        process(xyList, arr);
+
         arr[2][5] = parentheses(arr[2][5]);
         return arr;
     }
-
-    public String parentheses(String str) {
-        return "[" + str + "]";
-    }
-
 }
