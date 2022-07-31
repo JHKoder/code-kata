@@ -1,28 +1,21 @@
 package code.kata.koreanclock;
 
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class KoreaClock extends Thread {
 
-    public KoreaClock() {
-    }
-
     @Override
     public void start() {
         new Timer().scheduleAtFixedRate(new ScheduleTask(() -> {
             LocalTime localTime = LocalTime.now();
 
-            String hour = localTime.format(DateTimeFormatter.ofPattern("hh"));
-            String minute = localTime.format(DateTimeFormatter.ofPattern("mm"));
-
-            Korea korea= new Korea();
-            korea.gettingItRight(hour,minute,localTime.getHour());
+            Korea korea = new Korea();
+            korea.processing(localTime.getHour() % 12, localTime.getMinute());
             korea.print();
-        }), new Date(), 5_000);
+        }), new Date(), 1_000);
     }
 
     private static class ScheduleTask extends TimerTask {
@@ -39,4 +32,5 @@ public class KoreaClock extends Thread {
         }
 
     }
+
 }
