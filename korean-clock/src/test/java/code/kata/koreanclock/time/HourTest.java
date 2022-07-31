@@ -18,7 +18,7 @@ public class HourTest {
     })
     @DisplayName("시간별 좌표 인덱스를 가져올수 있다.")
     void timeIndexTest(int num) {
-        Assertions.assertThat(HourEnum.findHour(num)).isNotNull();
+        Assertions.assertThat(Hour.findHour(num)).isNotNull();
     }
 
     @ParameterizedTest
@@ -30,7 +30,7 @@ public class HourTest {
     })
     @DisplayName("시간에 해당되는 시간이 없다면 예외가 발생한다.")
     void timeIndexNotTest(int num) {
-        Assertions.assertThatCode(() -> HourEnum.findHour(num))
+        Assertions.assertThatCode(() -> Hour.findHour(num))
                 .isInstanceOf(NoSuchElementException.class)
                 .hasMessage("No value present");
     }
