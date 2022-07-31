@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public enum MinuteEnum {
+public enum Minute {
     ZERO(0, List.of()),
     ONE(1, List.of(Point.of(4, 1))),
     TWO(2, List.of(Point.of(4, 2))),
@@ -26,7 +26,7 @@ public enum MinuteEnum {
     private int minute;
     private List<Point> index;
 
-    MinuteEnum(int minute, List<Point> index) {
+    Minute(int minute, List<Point> index) {
         this.minute = minute;
         this.index = index;
     }
@@ -35,13 +35,13 @@ public enum MinuteEnum {
         int tens = (minute / 10) * 10;
         int units = minute % 10;
 
-        List<Point> tenList = Arrays.stream(MinuteEnum.values())
+        List<Point> tenList = Arrays.stream(Minute.values())
                 .filter(ten -> ten.minute == tens)
                 .findFirst()
                 .orElseThrow()
                 .index;
 
-        List<Point> unitList = Arrays.stream(MinuteEnum.values())
+        List<Point> unitList = Arrays.stream(Minute.values())
                 .filter(unit -> unit.minute == units)
                 .findFirst()
                 .orElseThrow()

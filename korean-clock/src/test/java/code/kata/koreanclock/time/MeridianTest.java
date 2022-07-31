@@ -17,7 +17,7 @@ public class MeridianTest {
     @DisplayName("자오정 시간을 알수 있다.")
     void timeIndexTest(int hour, int minute) {
         System.out.println(hour + "," + minute);
-        Assertions.assertThat(MeridianEnum.isMeridian(hour, minute)).isTrue();
+        Assertions.assertThat(Meridian.isMeridian(hour, minute)).isTrue();
     }
 
     @ParameterizedTest
@@ -27,7 +27,7 @@ public class MeridianTest {
     }, delimiterString = ",")
     @DisplayName("자오정 이 아닌 시간을 알수 있다.")
     void timeIndexNotTest(int hour, int minute) {
-        Assertions.assertThat(MeridianEnum.isMeridian(hour, minute)).isFalse();
+        Assertions.assertThat(Meridian.isMeridian(hour, minute)).isFalse();
     }
 
     @ParameterizedTest
@@ -37,7 +37,7 @@ public class MeridianTest {
     }, delimiterString = ",")
     @DisplayName("자오정 시간을 좌표를 알수 있다.")
     void selectMeridian(int hour, int minute) {
-        Assertions.assertThat(MeridianEnum.findMeridian(hour, minute)).isNotNull();
+        Assertions.assertThat(Meridian.findMeridian(hour, minute)).isNotNull();
     }
 
     @ParameterizedTest
@@ -47,7 +47,7 @@ public class MeridianTest {
     }, delimiterString = ",")
     @DisplayName("자오정 시간이 아닌 것들은 예외가 발생한다.")
     void selectNotMeridian(int hour, int minute) {
-        Assertions.assertThatCode(() -> MeridianEnum.findMeridian(hour, minute))
+        Assertions.assertThatCode(() -> Meridian.findMeridian(hour, minute))
                 .isInstanceOf(NoSuchElementException.class)
                 .hasMessage("No value present");
     }

@@ -4,7 +4,7 @@ package code.kata.koreanclock.time;
 import java.util.Arrays;
 import java.util.List;
 
-public enum HourEnum {
+public enum Hour {
     HOUR_ZERO(0, List.of(Point.of(2, 2), Point.of(2, 4), Point.of(2, 5))),
     HOUR_ONE(1, List.of(Point.of(0, 0), Point.of(2, 5))),
     HOUR_TWO(2, List.of(Point.of(0, 1), Point.of(2, 5))),
@@ -22,7 +22,7 @@ public enum HourEnum {
     private int hours;
     private List<Point> index;
 
-    HourEnum(int hours, List<Point> index) {
+    Hour(int hours, List<Point> index) {
         this.hours = hours;
         this.index = index;
     }
