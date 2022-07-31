@@ -5,7 +5,7 @@
 
 ---
 - 1초마다 출력을 한다.
-- 
+- 현재 시간은 [ ] 으로 나타 낸다.
 - [한글 시계 ](https://hangulclock.today/#/main) 사이트 기반 으로 제작 한다.
 
 ###출력 예시
@@ -40,6 +40,6 @@
 ## 한글 시계
 
 ---
-구조 파악 
+한글 시계 패턴 파악 
 
 ![screensh](https://raw.githubusercontent.com/oiNeh/code-kata/main/korean-clock/korean_clock.png)
