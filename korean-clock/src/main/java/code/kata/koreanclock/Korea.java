@@ -1,40 +1,61 @@
 package code.kata.koreanclock;
 
-import static java.util.Arrays.stream;
-
-import java.util.Objects;
-import java.util.stream.Stream;
+import code.kata.koreanclock.time.HourEnum;
+import code.kata.koreanclock.time.MeridianEnum;
+import code.kata.koreanclock.time.MinuteEnum;
+import code.kata.koreanclock.time.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Korea {
 
     private String[][] arr = {
-            {" 한 ", " 두 ", " 세 ", " 네 ", " 다 ", " 섯 "},
-            {" 여 ", " 섯 ", " 일 ", " 곱 ", " 여 ", " 덟 "},
-            {" 아 ", " 홉 ", " 열 ", " 한 ", " 두 ", " 시 "},
-            {" 자 ", " 이 ", " 삼 ", " 사 ", " 오 ", " 십 "},
-            {" 정 ", " 일 ", " 이 ", " 삼 ", " 사 ", " 육 "},
-            {" 오 ", " 오 ", " 칠 ", " 팔 ", " 구 ", " 분 "}
+            {"한", "두", "세", "네", "다", "섯"},
+            {"여", "섯", "일", "곱", "여", "덟"},
+            {"아", "홉", "열", "한", "두", "시"},
+            {"자", "이", "삼", "사", "오", "십"},
+            {"정", "일", "이", "삼", "사", "육"},
+            {"오", "오", "칠", "팔", "구", "분"}
     };
 
-    public void gettingItRight(String hour, String minute, int hours) {
+    private List<Point> pointList = new ArrayList<>();
 
-        if (Objects.equals(hour, "00") && Objects.equals(minute, "00")) {
-            new Meridian(arr, hours).processing();
+    public void processing(int hour, int minute) {
+
+        if (MeridianEnum.isMeridian(hour, minute)) {
+            pointList.addAll(MeridianEnum.findMeridian(hour, minute));
             return;
         }
 
-        new Hour(arr, hour).processing();
-        new Minute(arr, minute).processing();
+        pointList.addAll(HourEnum.findHour(hour));
+        pointList.addAll(MinuteEnum.findMinute(minute));
     }
 
     public void print() {
         System.out.print("\n".repeat(5));
-        stream(arr).flatMap(this::newLineStream).forEach(System.out::print);
+
+        for (int x = 0; x < arr.length; x++) {
+            for (int y = 0; y < arr[x].length; y++) {
+
+                final int finalX = x;
+                final int finalY = y;
+
+                boolean isPoint = pointList.stream()
+                        .anyMatch(in -> in.isEquals(finalX, finalY));
+
+                if (isPoint) {
+                    System.out.print(parentheses(arr[x][y]) + " ");
+                } else {
+                    System.out.print(arr[x][y] + " ");
+                }
+            }
+            System.out.println("");
+        }
+
     }
 
-    private <T> Stream<T> newLineStream(T[] array) {
-        System.out.print("\n");
-        return stream(array, 0, array.length);
+    public String parentheses(String str) {
+        return String.format("[%s]", str);
     }
 
 }
