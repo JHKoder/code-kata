@@ -8,9 +8,6 @@ public class Alarm {
 
     private final Set<Time> timer = new HashSet<>();
 
-    public Alarm() {
-    }
-
     public void addTask(String alarmTime) {
         timer.add(new Time(alarmTime));
     }
@@ -20,10 +17,8 @@ public class Alarm {
         if (timer.size()==0) {
             throw new AlarmClockShutdownException();
         }
-
         timer.removeIf(queue -> queueEqualsIf(queue, time));
-
-        System.out.println("현재 시간 - " + time.toString());
+        System.out.println("현재 시간 - " + time);
     }
 
     public boolean queueEqualsIf(Time queue, Time time) {
