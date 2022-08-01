@@ -15,7 +15,7 @@ public class Clock extends Thread {
     }
 
     @Override
-    public void run() {
+    public void start() {
         new Timer().scheduleAtFixedRate(new ScheduleTask(() -> {
             time.secondUp();
             alarm.checkAlarm(time);
