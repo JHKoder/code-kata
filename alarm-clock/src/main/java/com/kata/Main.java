@@ -11,8 +11,6 @@ public class Main {
         alarmClock.addTask("21:13:10");
         alarmClock.addTask("21:13:20");
 
-        alarmClock.run();
-
     }
 
 }
