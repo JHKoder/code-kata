@@ -18,7 +18,6 @@ public class Alarm {
             throw new AlarmClockShutdownException();
         }
         timer.removeIf(queue -> queueEqualsIf(queue, time));
-        System.out.println("현재 시간 - " + time);
     }
 
     public boolean queueEqualsIf(Time queue, Time time) {
