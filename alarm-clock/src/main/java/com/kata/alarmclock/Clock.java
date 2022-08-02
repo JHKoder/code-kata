@@ -19,6 +19,7 @@ public class Clock extends Thread {
         new Timer().scheduleAtFixedRate(new ScheduleTask(() -> {
             time.secondUp();
             alarm.checkAlarm(time);
+            System.out.println("현재 시간 - " + time);
         }), new Date(), 1_000);
     }
 
