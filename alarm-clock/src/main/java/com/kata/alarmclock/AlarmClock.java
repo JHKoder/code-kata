@@ -8,11 +8,14 @@ public class AlarmClock extends Thread {
     public AlarmClock() {
         alarm = new Alarm();
         clock = new Clock(alarm);
-        clock.start();
     }
 
     public void addTask(String hhMmSs) {
         alarm.addTask(hhMmSs);
+    }
+
+    public void start(){
+        clock.start();
     }
 
 }
