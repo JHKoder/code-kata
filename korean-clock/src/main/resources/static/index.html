@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<table id="table" border="1" style="width:500px;height:500px;text-align:center;font-size:50px;font-weight:700;color:rgb(227 227 227);">
+  <tr>
+    <td id="x_0_y_0">한</td>
+    <td id="x_1_y_0">두</td>
+    <td id="x_2_y_0">세</td>
+    <td id="x_3_y_0">네</td>
+    <td id="x_4_y_0">다</td>
+    <td id="x_5_y_0">섯</td>
+  </tr>
+  <tr>
+    <td id="x_0_y_1">여</td>
+    <td id="x_1_y_1">섯</td>
+    <td id="x_2_y_1">일</td>
+    <td id="x_3_y_1">곱</td>
+    <td id="x_4_y_1">여</td>
+    <td id="x_5_y_1">덟</td>
+  </tr>
+  <tr>
+    <td id="x_0_y_2">아</td>
+    <td id="x_1_y_2">홉</td>
+    <td id="x_2_y_2">열</td>
+    <td id="x_3_y_2">한</td>
+    <td id="x_4_y_2">두</td>
+    <td id="x_5_y_2">시</td>
+  </tr>
+  <tr>
+    <td id="x_0_y_3">자</td>
+    <td id="x_1_y_3">이</td>
+    <td id="x_2_y_3">삼</td>
+    <td id="x_3_y_3">사</td>
+    <td id="x_4_y_3">오</td>
+    <td id="x_5_y_3">십</td>
+  </tr>
+  <tr>
+    <td id="x_0_y_4">정</td>
+    <td id="x_1_y_4">일</td>
+    <td id="x_2_y_4">이</td>
+    <td id="x_3_y_4">삼</td>
+    <td id="x_4_y_4">사</td>
+    <td id="x_5_y_4">육</td>
+  </tr>
+  <tr>
+    <td id="x_0_y_5">오</td>
+    <td id="x_1_y_5">오</td>
+    <td id="x_2_y_5">칠</td>
+    <td id="x_3_y_5">팔</td>
+    <td id="x_4_y_5">구</td>
+    <td id="x_5_y_5">분</td>
+  </tr>
+</table>
+</body>
+<script>
+
+  var jsonSave =null;
+
+  setInterval(function(){
+    for(var i in jsonSave){
+      const index = document.getElementById("x_"+ jsonSave[i].y +"_y_"+jsonSave[i].x);
+      index.style.color='rgb(227 227 227)';
+    }
+    update();
+  },1000);
+
+  function update(){
+
+    $.ajax({
+      url:'api',
+      method: 'GET',
+      success : function(data){
+        var json = JSON.parse(data);
+        for(var i in json){
+          var index = document.getElementById("x_"+ json[i].y +"_y_"+json[i].x);
+          index.style.color='rgb(65 237 245)';
+        }
+        jsonSave = json;
+      }
+    })
+  }
+</script>
+</html>

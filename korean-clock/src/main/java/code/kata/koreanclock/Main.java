@@ -1,10 +1,13 @@
 package code.kata.koreanclock;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
 public class Main {
 
-    public static void main(String[] args){
-        KoreaClock koreaClock = new KoreaClock();
-        koreaClock.start();
+    public static void main(String[] args) {
+        SpringApplication.run(Main.class, args);
     }
 
 }
