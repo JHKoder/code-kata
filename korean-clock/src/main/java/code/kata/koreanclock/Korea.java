@@ -18,9 +18,10 @@ public class Korea {
             {"오", "오", "칠", "팔", "구", "분"}
     };
 
-    private List<Point> pointList = new ArrayList<>();
+    public List<Point> pointList = new ArrayList<>();
 
     public void processing(int hour, int minute) {
+        pointList = new ArrayList<>();
 
         if (Meridian.isMeridian(hour, minute)) {
             pointList.addAll(Meridian.findMeridian(hour, minute));
@@ -29,6 +30,14 @@ public class Korea {
 
         pointList.addAll(Hour.findHour(hour));
         pointList.addAll(Minute.findMinute(minute));
+    }
+
+    public List<Point> findPointList() {
+        return pointList;
+    }
+
+    public String[][] findKorea() {
+        return arr;
     }
 
     public void print() {
@@ -59,5 +68,6 @@ public class Korea {
     private String parentheses(String str) {
         return String.format("[%s]", str);
     }
+
 
 }
