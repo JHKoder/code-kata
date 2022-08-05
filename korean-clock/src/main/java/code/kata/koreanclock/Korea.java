@@ -36,9 +36,6 @@ public class Korea {
         return pointList;
     }
 
-    public String[][] findKorea() {
-        return arr;
-    }
 
     public void print() {
         System.out.print("\n".repeat(5));
