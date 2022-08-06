@@ -1,32 +1,48 @@
 package code.kata.koreanclock;
 
 import code.kata.koreanclock.time.Point;
-import java.time.LocalTime;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
+import org.springframework.stereotype.Component;
 
+@Component
 public class KoreaClock extends Thread {
 
-    private final Korea korea;
+    private final Map<Country, Korea> countryThreadMap = new HashMap<>();
 
-    public KoreaClock(){
-        korea = new Korea();
+    public KoreaClock() {
+        start();
     }
 
-    @Override
+    public List<Point> findPointList(Country code) {
+        List<Point> temp = countryThreadMap.get(code).findPointList();
+        return temp;
+    }
+
     public void start() {
+        for (Country cou : Country.values()) {
+            countryThreadMap.put(cou, new Korea());
+        }
         new Timer().scheduleAtFixedRate(new ScheduleTask(() -> {
-            LocalTime localTime = LocalTime.now();
-            korea.processing(localTime.getHour() % 12, localTime.getMinute());
-            korea.print();
+            for (Country cou : Country.values()) {
+                CalendarThread(cou, countryThreadMap.get(cou));
+            }
         }), new Date(), 1_000);
     }
 
-    public List<Point> findPointList() {
-        return korea.pointList;
+    private void CalendarThread(Country cou, Korea korea) {
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone(cou.getCode()));
+        korea.processing(cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE));
+        korea.print(cou);
     }
+
 
     private static class ScheduleTask extends TimerTask {
 
