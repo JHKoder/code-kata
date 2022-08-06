@@ -7,9 +7,10 @@ import code.kata.koreanclock.time.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Korea {
 
-    private String[][] arr = {
+    private static final String[][] arr = {
             {"한", "두", "세", "네", "다", "섯"},
             {"여", "섯", "일", "곱", "여", "덟"},
             {"아", "홉", "열", "한", "두", "시"},
@@ -18,7 +19,7 @@ public class Korea {
             {"오", "오", "칠", "팔", "구", "분"}
     };
 
-    public List<Point> pointList = new ArrayList<>();
+    private List<Point> pointList = new ArrayList<>();
 
     public void processing(int hour, int minute) {
         pointList = new ArrayList<>();
@@ -36,10 +37,10 @@ public class Korea {
         return pointList;
     }
 
+    public void print(Country cou) {
+        System.out.print("\n".repeat(2));
 
-    public void print() {
-        System.out.print("\n".repeat(5));
-
+        System.out.println("나라 : "+ cou.getName());
         for (int x = 0; x < arr.length; x++) {
             for (int y = 0; y < arr[x].length; y++) {
                 printValue(x, y);
@@ -54,17 +55,15 @@ public class Korea {
                 .anyMatch(in -> in.isEquals(x, y));
 
         if (isMatch) {
-            System.out.print(parentheses(arr[x][y]) + " ");
+            System.out.print(parentheses(arr[x][y]));
         }
         if (!isMatch) {
-            System.out.print(arr[x][y] + " ");
+            System.out.print(" " +arr[x][y] + " ");
         }
     }
-
 
     private String parentheses(String str) {
         return String.format("[%s]", str);
     }
-
 
 }
