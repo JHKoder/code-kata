@@ -1,20 +1,18 @@
 package code.kata.koreanclock;
 
-import org.json.JSONArray;
+import code.kata.koreanclock.time.Point;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class KoreanClockService {
 
     private final KoreaClock koreaClock;
 
-    public KoreanClockService() {
-        this.koreaClock = new KoreaClock();
-        koreaClock.start();
-    }
-
-    public JSONArray findIndexList(){
-        return new JSONArray(koreaClock.findPointList());
+    public List<Point> findIndexList(Country code) {
+        return koreaClock.findPointList(code);
     }
 
 }
