@@ -12,7 +12,7 @@ public class AlarmTest {
     @Test
     @DisplayName("알람 추가")
     void test() {
-        Alarm alarm = new Alarm();
+        Alarm alarm = new Alarm(new Time());
 
         Assertions.assertThatCode(() -> alarm.addTask("1:1:1"))
                 .isEqualTo(null);
