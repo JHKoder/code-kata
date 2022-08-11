@@ -1,12 +1,19 @@
 package com.kata.alarmclock;
 
 import com.kata.alarmclock.exception.AlarmClockShutdownException;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Timer;
 
-public class Alarm {
+public class Alarm extends Thread {
 
     private final Set<Time> timer = new HashSet<>();
+    private final Time time;
+
+    public Alarm(Time time) {
+        this.time = time;
+    }
 
     public void addTask(String alarmTime) {
         timer.add(new Time(alarmTime));
@@ -26,6 +33,13 @@ public class Alarm {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void start() {
+        new Timer().scheduleAtFixedRate(new ScheduleTask(() -> {
+            checkAlarm(time);
+        }), new Date(), 1_000);
     }
 
 }
