@@ -2,40 +2,20 @@ package com.kata.alarmclock;
 
 import java.util.Date;
 import java.util.Timer;
-import java.util.TimerTask;
 
 public class Clock extends Thread {
 
     private final Time time;
-    private final Alarm alarm;
-
-    public Clock(Alarm alarm) {
-        time = new Time();
-        this.alarm = alarm;
+    public Clock(Time time) {
+        this.time =time;
     }
 
     @Override
     public void start() {
         new Timer().scheduleAtFixedRate(new ScheduleTask(() -> {
             time.secondUp();
-            alarm.checkAlarm(time);
             System.out.println("현재 시간 - " + time);
         }), new Date(), 1_000);
-    }
-
-    private static class ScheduleTask extends TimerTask {
-
-        private final Runnable runnable;
-
-        public ScheduleTask(Runnable runnable) {
-            this.runnable = runnable;
-        }
-
-        @Override
-        public void run() {
-            runnable.run();
-        }
-
     }
 
 }
