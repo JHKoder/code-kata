@@ -6,16 +6,19 @@ public class AlarmClock extends Thread {
     private final Clock clock;
 
     public AlarmClock() {
-        alarm = new Alarm();
-        clock = new Clock(alarm);
+        Time time = new Time();
+        alarm = new Alarm(time);
+        clock = new Clock(time);
     }
 
     public void addTask(String hhMmSs) {
         alarm.addTask(hhMmSs);
     }
 
-    public void start(){
+    @Override
+    public void start() {
         clock.start();
+        alarm.start();
     }
 
 }
