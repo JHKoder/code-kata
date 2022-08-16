@@ -8,18 +8,22 @@ public class Clock extends Thread {
 
     private final Time time;
     private final Alarm alarm;
+    private final Pint out;
 
-    public Clock(Alarm alarm) {
+    public Clock(Alarm alarm,Pint pint) {
         time = new Time();
+        this.out = pint;
         this.alarm = alarm;
     }
 
     @Override
     public void start() {
-        new Timer().scheduleAtFixedRate(new ScheduleTask(() -> {
+        Timer timer = new Timer();
+
+        timer.scheduleAtFixedRate(new ScheduleTask(() -> {
             time.secondUp();
-            alarm.checkAlarm(time);
-            System.out.println("현재 시간 - " + time);
+            alarm.checkAlarm(time,timer);
+            out.print("현재 시간 - " + time);
         }), new Date(), 1_000);
     }
 
