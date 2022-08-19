@@ -1,7 +1,6 @@
 package code.kata.koreanclock;
 
 import code.kata.koreanclock.time.Point;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -22,8 +21,7 @@ public class KoreaClock extends Thread {
     }
 
     public List<Point> findPointList(Country code) {
-        List<Point> temp = countryThreadMap.get(code).findPointList();
-        return temp;
+        return countryThreadMap.get(code).findPointList();
     }
 
     public void start() {
@@ -42,7 +40,6 @@ public class KoreaClock extends Thread {
         korea.processing(cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE));
         korea.print(cou);
     }
-
 
     private static class ScheduleTask extends TimerTask {
 
