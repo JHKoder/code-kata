@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class KoreanClockController {
-
     @GetMapping
     public String home() {
         return "index";

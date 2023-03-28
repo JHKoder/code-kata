@@ -1,0 +1,9 @@
+.gradle
+.idea
+gradlew.bat
+**/**/test-results
+**/build/tmp
+**/build/reports
+
+gradlew
+*.class

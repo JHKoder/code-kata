@@ -1,13 +1,10 @@
 package com.kata.calculation;
 
-import static java.util.Arrays.stream;
-import static java.util.stream.Collectors.toCollection;
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-
-import java.util.LinkedList;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("문자열 계산기 테스트")
 public class CalculatorExpressionTest {
@@ -20,8 +17,7 @@ public class CalculatorExpressionTest {
     })
     @DisplayName("컬렉션 테스트")
     void collectionTest(String str, String result) {
-        CalculatorExpression calculatorExpression = new CalculatorExpression(stream(str.split(" "))
-                .collect(toCollection(LinkedList::new)));
+        CalculatorExpression calculatorExpression = new CalculatorExpression(str);
 
         assertThat(calculatorExpression.calculation()).isEqualTo(Integer.parseInt(result));
     }

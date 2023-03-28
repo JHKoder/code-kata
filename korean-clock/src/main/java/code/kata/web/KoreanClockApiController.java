@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class KoreanClockApiController {
-
     private final KoreanClockService koreanClockService;
 
     @GetMapping("/api")
@@ -26,5 +25,4 @@ public class KoreanClockApiController {
     public ResponseEntity<List<Point>> countryApi(@PathVariable String country) {
         return new ResponseEntity<>(koreanClockService.findIndexList(Country.findCode(country.toUpperCase())), HttpStatus.OK);
     }
-
 }

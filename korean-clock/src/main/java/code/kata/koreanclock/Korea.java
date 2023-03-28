@@ -9,7 +9,6 @@ import java.util.List;
 
 
 public class Korea {
-
     private static final String[][] arr = {
             {"한", "두", "세", "네", "다", "섯"},
             {"여", "섯", "일", "곱", "여", "덟"},
@@ -65,5 +64,4 @@ public class Korea {
     private String parentheses(String str) {
         return String.format("[%s]", str);
     }
-
 }

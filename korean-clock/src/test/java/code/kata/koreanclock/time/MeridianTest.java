@@ -51,5 +51,4 @@ public class MeridianTest {
                 .isInstanceOf(NoSuchElementException.class)
                 .hasMessage("No value present");
     }
-
 }

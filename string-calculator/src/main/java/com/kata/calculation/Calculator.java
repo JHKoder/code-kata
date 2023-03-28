@@ -13,5 +13,4 @@ public class Calculator {
         System.out.println(calculatorExpression.calculation());
         bufferInput.close();
     }
-
 }

@@ -5,7 +5,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Clock extends Thread {
-
     private final Time time;
     private final Alarm alarm;
     private final Pint out;
@@ -39,7 +38,5 @@ public class Clock extends Thread {
         public void run() {
             runnable.run();
         }
-
     }
-
 }

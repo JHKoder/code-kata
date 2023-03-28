@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.Timer;
 
 public class Alarm {
-
     private final Set<Time> timer = new HashSet<>();
     private final Pint out;
 
@@ -39,7 +38,4 @@ public class Alarm {
         }
         return false;
     }
-
-
-
 }

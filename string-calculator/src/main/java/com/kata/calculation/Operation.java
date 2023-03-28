@@ -30,5 +30,4 @@ public enum Operation {
     private Integer calculate(Integer left, Integer right) {
         return expression.apply(left, right);
     }
-
 }

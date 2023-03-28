@@ -5,7 +5,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 public class BufferInput {
-
     private final BufferedReader br;
 
     public BufferInput() {
@@ -35,5 +34,4 @@ public class BufferInput {
             throw new CalculatorInputException();
         }
     }
-
 }

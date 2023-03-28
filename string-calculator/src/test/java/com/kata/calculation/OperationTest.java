@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 @DisplayName("연산 테스트")
 public class OperationTest {
 
-
     @Test
     @DisplayName("더하기 성공")
     void plusSuccess() {

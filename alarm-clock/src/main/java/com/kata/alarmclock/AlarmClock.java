@@ -1,7 +1,6 @@
 package com.kata.alarmclock;
 
 public class AlarmClock extends Thread {
-
     private Pint pint;
     private final Alarm alarm;
     private final Clock clock;
@@ -19,5 +18,4 @@ public class AlarmClock extends Thread {
     public void start(){
         clock.start();
     }
-
 }
