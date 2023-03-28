@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class CalculatorExpression {
-
     private final Queue<String> calculatorList;
 
     public CalculatorExpression(String inputCalculator) {
@@ -26,5 +25,4 @@ public class CalculatorExpression {
         return sum;
 
     }
-
 }

@@ -1,6 +1,6 @@
 HELP.md
 ../string-calculator2/.gradle
-build/
+../string-calculator2/build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
