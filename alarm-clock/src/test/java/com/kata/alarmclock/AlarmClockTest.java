@@ -1,9 +1,9 @@
 package com.kata.alarmclock;
 
-import static com.google.common.truth.Truth.assertThat;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @DisplayName("알람 시계 테스트")
 public class AlarmClockTest {

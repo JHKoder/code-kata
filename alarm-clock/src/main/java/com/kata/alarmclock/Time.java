@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 public class Time {
-
     private LocalTime localTime;
 
     public Time(String str) {
@@ -37,5 +36,4 @@ public class Time {
 
         return LocalTime.of(times[0], times[1], times[2]);
     }
-
 }
