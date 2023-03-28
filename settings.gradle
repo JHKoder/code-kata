@@ -1,4 +1,6 @@
 rootProject.name = 'code-kata'
 include 'alarm-clock'
+include 'korean-clock'
 include 'string-calculator'
+include 'rockPaperScissors'
 
