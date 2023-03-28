@@ -1,7 +1,6 @@
 package code.kata.koreanclock.time;
 
 public class Point {
-
     private int x;
     private int y;
 

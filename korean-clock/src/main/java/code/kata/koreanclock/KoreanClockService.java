@@ -8,11 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class KoreanClockService {
-
     private final KoreaClock koreaClock;
 
     public List<Point> findIndexList(Country code) {
         return koreaClock.findPointList(code);
     }
-
 }

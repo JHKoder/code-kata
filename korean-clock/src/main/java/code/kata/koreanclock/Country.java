@@ -1,7 +1,6 @@
 package code.kata.koreanclock;
 
 public enum Country {
-
     KR("Asia/Seoul", "서울"),
     DE("CET", "덴마크"),
     HK("Asia/Hong_Kong", "홍콩"),

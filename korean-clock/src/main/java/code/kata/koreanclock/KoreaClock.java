@@ -14,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class KoreaClock extends Thread {
-
     private final Map<Country, Korea> countryThreadMap = new HashMap<>();
 
     public KoreaClock() {
@@ -58,5 +57,4 @@ public class KoreaClock extends Thread {
         }
 
     }
-
 }

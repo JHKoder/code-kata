@@ -34,5 +34,4 @@ public class MinuteTest {
                 .isInstanceOf(NoSuchElementException.class)
                 .hasMessage("No value present");
     }
-
 }
