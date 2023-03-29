@@ -1,4 +1,4 @@
-package code.kata.rockPaperScissors;
+package code.kata.domain;
 
 public enum Result {
     WIN,
