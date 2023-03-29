@@ -4,7 +4,11 @@ package code.kata.rockPaperScissors;
 import code.kata.exception.HandTypeException;
 
 public class Paper implements Hand {
-    private final int ID = 3;
+    private static final int ID = 3;
+
+    public static boolean equalsId(int number) {
+        return ID == number;
+    }
 
     @Override
     public Result fight(Hand hand) {
