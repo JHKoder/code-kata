@@ -15,7 +15,7 @@ public class Game {
 
         output.userInputMessage();
 
-        Gamer user = new Gamer(userCommand());
+        Gamer user = new Gamer(userInputCommand());
         Gamer computer = new Gamer(Hand.valueOf(randomInt()));
 
         output.resultMessage(user, computer);
@@ -25,7 +25,7 @@ public class Game {
         return new Random().nextInt(3) + 1;
     }
 
-    private Hand userCommand() {
+    private Hand userInputCommand() {
         try (ConsoleInput inputAdapter = new ConsoleInput()) {
             return Hand.valueOf(inputAdapter.input());
         }
