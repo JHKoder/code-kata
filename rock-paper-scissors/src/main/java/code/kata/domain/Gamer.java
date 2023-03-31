@@ -1,7 +1,7 @@
 package code.kata.domain;
 
 public class Gamer {
-    private Hand hand;
+    private final Hand hand;
 
     public Gamer(Hand hand) {
         this.hand = hand;
@@ -12,6 +12,6 @@ public class Gamer {
     }
 
     public Result match(Gamer gamer){
-        return this.hand.fight(gamer.getHand());
+        return hand.fight(gamer.getHand());
     }
 }
